@@ -6,7 +6,7 @@ const historyEl=document.querySelector("#history");
 let searchHistory=localStorage.searchHistory?JSON.parse(localStorage.searchHistory):[];
 
 //show result for last research
-window.onload=fetchWwather(searchHistory[searchHistory.length-1]);
+// window.onload=getapi(searchHistory[searchHistory.length-1]);
 
 //display search history
 function initialize(){
@@ -16,30 +16,48 @@ function initialize(){
     })
 }
 
-//get city name
-function getCityName(){
-    let cityName = document.querySelector("#searchBox").value;
-    return cityName;
-}
+// //get city name
+// function getCityName(){
+//     let cityName = document.querySelector("#searchBox").value;
+//     return cityName;
+// }
 
+$('.submitbutton').click(function(){
+    var cityName = $(this).siblings('#searchBox').val();
+    console.log(cityName);
+    var APIWEATHER = "https://api.openweathermap.org/data/2.5/weather?q" + cityName + "&appid=36c3a4ae85c25a7c383c49b315b441a8";
+    var APIFORCAST = "https://api.openweathermap.org/data/2.5/forecast?q" + cityName + "&appid=36c3a4ae85c25a7c383c49b315b441a8";
+    fetch(APIWEATHER)
+    .then(res=>res.json()).then(data=>{
+        console.log(data)
+        displayWeather(data);
+    });
 
+    fetch(APIFORCAST)
+    .then(res=>res.json()).then(data=>{
+        console.log(data)
+        displayForecast(data);
+    });
+
+    }
+    )
 
 // fetch weather information based on the input city name
-async function fetchWwather(cityName){
-    let APIWEATHER = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=36c3a4ae85c25a7c383c49b315b441a88`;
-    let APIFORCAST = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=36c3a4ae85c25a7c383c49b315b441a8`;
-    const weatherResult = await fetch(APIWEATHER).then((response)=>response.json());
-    const forecastResult = await fetch(APIFORCAST).then((response)=>response.json());
-    //Complete One Call url with returned results
-    let apiOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${weatherResult.coord.lat}&lon=${weatherResult.coord.lon}&appid=36c3a4ae85c25a7c383c49b315b441a8`;
-    const onecallResult = await fetch( apiOneCall ).then((response)=>response.json());
-    // display weather information
-    if(weatherResult){
-        displayWeather(weatherResult, forecastResult, onecallResult);
-    }else{
-        document.querySelector("#DisplayWindow").innerHTML=`<h4>City not found, please try again.</h4>`;
-    }
-}
+// async function fetchWwather(cityName){
+//     let APIWEATHER = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=36c3a4ae85c25a7c383c49b315b441a88`;
+//     let APIFORCAST = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=36c3a4ae85c25a7c383c49b315b441a8`;
+//     const weatherResult = await fetch(APIWEATHER).then((response)=>response.json());
+//     const forecastResult = await fetch(APIFORCAST).then((response)=>response.json());
+//     //Complete One Call url with returned results
+//     // let apiOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${weatherResult.coord.lat}&lon=${weatherResult.coord.lon}&appid=36c3a4ae85c25a7c383c49b315b441a8`;
+//     // const onecallResult = await fetch( apiOneCall ).then((response)=>response.json());
+//     // display weather information
+//     if(weatherResult){
+//         displayWeather(weatherResult, forecastResult);
+//     }else{
+//         document.querySelector("#DisplayWindow").innerHTML=`<h4>City not found, please try again.</h4>`;
+//     }
+// }
 
 function displayWeather(currentdata, forecastdata){
     let currentdate=dayjs().format('MM/DD/YYYY');
