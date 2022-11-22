@@ -26,13 +26,13 @@ function getCityName(){
 
 // fetch weather information based on the input city name
 async function fetchWwather(cityName){
-    let APIWEATHER = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=36c3a4ae85c25a7c383c49b315b441a88`;
-    let APIFORCAST = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=36c3a4ae85c25a7c383c49b315b441a8`;
+    let APIWEATHER = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=36c3a4ae85c25a7c383c49b315b441a88`;
+    let APIFORCAST = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=36c3a4ae85c25a7c383c49b315b441a8`;
     const weatherResult = await fetch(APIWEATHER).then((response)=>response.json());
     const forecastResult = await fetch(APIFORCAST).then((response)=>response.json());
-    //Complete One Call url with returned results
-    let apiOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${weatherResult.coord.lat}&lon=${weatherResult.coord.lon}&appid=36c3a4ae85c25a7c383c49b315b441a8`;
-    const onecallResult = await fetch( apiOneCall ).then((response)=>response.json());
+//     //Complete One Call url with returned results
+//     let apiOneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${weatherResult.coord.lat}&lon=${weatherResult.coord.lon}&appid=36c3a4ae85c25a7c383c49b315b441a8`;
+//     const onecallResult = await fetch( apiOneCall ).then((response)=>response.json());
     // display weather information
     if(weatherResult){
         displayWeather(weatherResult, forecastResult, onecallResult);
