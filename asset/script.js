@@ -26,7 +26,7 @@ function getCityName(){
 
 // fetch weather information based on the input city name
 async function fetchWwather(cityName){
-    let APIWEATHER = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=36c3a4ae85c25a7c383c49b315b441a8`;
+    let APIWEATHER = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=36c3a4ae85c25a7c383c49b315b441a88`;
     let APIFORCAST = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=36c3a4ae85c25a7c383c49b315b441a8`;
     const weatherResult = await fetch(APIWEATHER).then((response)=>response.json());
     const forecastResult = await fetch(APIFORCAST).then((response)=>response.json());
