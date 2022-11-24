@@ -25,8 +25,6 @@ function getCityName(){
 $('.submitbutton').click(() => getApi(getCityName()));
 
 function getApi(cityName){
-    // cityName=cityName || getCityName();
-    // console.log(cityName);
     var APIWEATHER = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=36c3a4ae85c25a7c383c49b315b441a8";
     var APIFORCAST = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=36c3a4ae85c25a7c383c49b315b441a8";
     fetch(APIWEATHER)
