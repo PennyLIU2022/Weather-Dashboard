@@ -6,7 +6,7 @@ const historyEl=document.querySelector("#history");
 let searchHistory=localStorage.searchHistory?JSON.parse(localStorage.searchHistory):[];
 
 //show result for last research
-// window.onload=getApi(searchHistory[searchHistory.length-1]);
+window.onload=getApi(searchHistory[searchHistory.length-1]);
 
 //display search history
 function initialize(){
@@ -35,7 +35,8 @@ function getApi(cityName){
     
     fetch(APIFORCAST)
         .then(res=>res.json()).then(data=>{
-            console.log(data.list)
+            console.log(data.list);
+            document.querySelector("#forecast").innerHTML = '';
             data.list.forEach((day,index) => displayForecast(day,index));
         });
 }
@@ -73,4 +74,4 @@ function ClearHistory(){
     historyEl.innerHTML = '';
 }
 
-// initialize();
+initialize();
